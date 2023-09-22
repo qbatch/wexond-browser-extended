@@ -18,6 +18,7 @@ import { TabEvent } from '~/interfaces/tabs';
 import { Queue } from '~/utils/queue';
 import { Application } from './application';
 import { getUserAgentForURL } from './user-agent';
+import { config } from 'dotenv';
 
 interface IAuthInfo {
   url: string;
@@ -91,6 +92,10 @@ export class View {
         callback({ requestHeaders: details.requestHeaders });
       },
     );
+
+    this.webContents.session.setProxy({
+      proxyRules: config().parsed.PROXY_SERVER_LINK,
+    });
 
     ipcMain.handle(`get-error-url-${this.id}`, async (e) => {
       return this.errorURL;

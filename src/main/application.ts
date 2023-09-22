@@ -13,7 +13,10 @@ import { DialogsService } from './services/dialogs-service';
 import { requestAuth } from './dialogs/auth';
 import { NetworkServiceHandler } from './network/network-service-handler';
 import { ExtensionServiceHandler } from './extension-service-handler';
+import { createProxyServer } from './utils/proxy-server';
+import { config } from 'dotenv';
 
+console.log('config: ', config().parsed.PROXY_USERNAME);
 export class Application {
   public static instance = new Application();
 
@@ -29,7 +32,8 @@ export class Application {
 
   public start() {
     const gotTheLock = app.requestSingleInstanceLock();
-
+    createProxyServer();
+    config();
     if (!gotTheLock) {
       app.quit();
       return;
