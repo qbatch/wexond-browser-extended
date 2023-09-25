@@ -1,4 +1,5 @@
 import { BrowserView, app, ipcMain } from 'electron';
+import * as os from 'os';
 import { parse as parseUrl } from 'url';
 import { getViewMenu } from './menus/view';
 import { AppWindow } from './windows';
@@ -93,8 +94,20 @@ export class View {
       },
     );
 
+    const interfaces = os.networkInterfaces();
+    let serverIPAddress;
+    for (const key of Object.keys(interfaces)) {
+      for (const entry of interfaces[key]) {
+        if (!entry.internal && entry.family === 'IPv4') {
+          serverIPAddress = entry.address;
+          break;
+        }
+      }
+      if (serverIPAddress) break;
+    }
+
     this.webContents.session.setProxy({
-      proxyRules: config().parsed.PROXY_SERVER_LINK,
+      proxyRules: `${serverIPAddress}:8080`,
     });
 
     ipcMain.handle(`get-error-url-${this.id}`, async (e) => {

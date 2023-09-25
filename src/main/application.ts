@@ -15,8 +15,6 @@ import { NetworkServiceHandler } from './network/network-service-handler';
 import { ExtensionServiceHandler } from './extension-service-handler';
 import { createProxyServer } from './utils/proxy-server';
 import { config } from 'dotenv';
-
-console.log('config: ', config().parsed.PROXY_USERNAME);
 export class Application {
   public static instance = new Application();
 
