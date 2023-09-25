@@ -19,7 +19,6 @@ import { TabEvent } from '~/interfaces/tabs';
 import { Queue } from '~/utils/queue';
 import { Application } from './application';
 import { getUserAgentForURL } from './user-agent';
-import { config } from 'dotenv';
 
 interface IAuthInfo {
   url: string;

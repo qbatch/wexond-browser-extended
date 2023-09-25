@@ -1,8 +1,8 @@
 import { Server } from 'proxy-chain';
-import { config } from 'dotenv';
 
 export function createProxyServer() {
-  const { PROXY_USERNAME, PROXY_PASSWORD, PROXY_LINK } = config().parsed;
+  const { PROXY_USERNAME, PROXY_PASSWORD, PROXY_LINK } = process.env;
+
   const proxyServer = new Server({
     port: 8080,
     verbose: true,
