@@ -94,17 +94,9 @@ export class View {
       },
     );
 
-    const interfaces = os.networkInterfaces();
-    let serverIPAddress;
-    for (const key of Object.keys(interfaces)) {
-      for (const entry of interfaces[key]) {
-        if (!entry.internal && entry.family === 'IPv4') {
-          serverIPAddress = entry.address;
-          break;
-        }
-      }
-      if (serverIPAddress) break;
-    }
+    const serverIPAddress = Object.values(os.networkInterfaces())
+      .flat()
+      .find((entry) => !entry.internal && entry.family === 'IPv4')?.address;
 
     this.webContents.session.setProxy({
       proxyRules: `${serverIPAddress}:8080`,
