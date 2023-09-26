@@ -14,6 +14,8 @@ import { requestAuth } from './dialogs/auth';
 import { NetworkServiceHandler } from './network/network-service-handler';
 import { ExtensionServiceHandler } from './extension-service-handler';
 
+import setUserDirectory from './utils/set-user-directory';
+
 export class Application {
   public static instance = new Application();
 
@@ -29,6 +31,8 @@ export class Application {
 
   public start() {
     const gotTheLock = app.requestSingleInstanceLock();
+
+    setUserDirectory(app, `Wexond${new Date().getTime()}`);
 
     if (!gotTheLock) {
       app.quit();
