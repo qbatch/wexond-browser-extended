@@ -309,7 +309,9 @@ export const getMainMenu = () => {
       label: 'Tab',
       submenu: [
         ...createMenuItem(
-          isMac ? ['Cmd+Option+Right'] : ['Ctrl+Tab', 'Ctrl+PageDown'],
+          isMac
+            ? ['Cmd+Option+Right', 'Ctrl+Tab']
+            : ['Ctrl+Tab', 'Ctrl+PageDown'],
           () => {
             Application.instance.windows.current.webContents.send(
               'select-next-tab',
@@ -318,7 +320,9 @@ export const getMainMenu = () => {
           'Select next tab',
         ),
         ...createMenuItem(
-          isMac ? ['Cmd+Option+Left'] : ['Ctrl+Shift+Tab', 'Ctrl+PageUp'],
+          isMac
+            ? ['Cmd+Option+Left', 'Ctrl+Shift+Tab']
+            : ['Ctrl+Shift+Tab', 'Ctrl+PageUp'],
           () => {
             Application.instance.windows.current.webContents.send(
               'select-previous-tab',
