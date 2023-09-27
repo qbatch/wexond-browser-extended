@@ -13,7 +13,7 @@ import { DialogsService } from './services/dialogs-service';
 import { requestAuth } from './dialogs/auth';
 import { NetworkServiceHandler } from './network/network-service-handler';
 import { ExtensionServiceHandler } from './extension-service-handler';
-
+import { createProxyServer } from './utils/proxy-server';
 import setUserDirectory from './utils/set-user-directory';
 
 export class Application {
@@ -31,9 +31,9 @@ export class Application {
 
   public start() {
     const gotTheLock = app.requestSingleInstanceLock();
-
+    createProxyServer();
     setUserDirectory(app, `Wexond${new Date().getTime()}`);
-
+    
     if (!gotTheLock) {
       app.quit();
       return;
