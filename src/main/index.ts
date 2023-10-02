@@ -33,8 +33,7 @@ ipcMain.setMaxListeners(0);
 // app.setAsDefaultProtocolClient('http');
 // app.setAsDefaultProtocolClient('https');
 
-const application = Application.instance;
-application.start();
+export const application = Application.instance;
 
 process.on('uncaughtException', (error) => {
   console.error(error);
