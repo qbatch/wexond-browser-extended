@@ -24,6 +24,8 @@ interface IAuthInfo {
   url: string;
 }
 
+const { PROXY_PORT } = process.env;
+
 export class View {
   public browserView: BrowserView;
 
@@ -98,7 +100,7 @@ export class View {
       .find((entry) => !entry.internal && entry.family === 'IPv4')?.address;
 
     this.webContents.session.setProxy({
-      proxyRules: `${serverIPAddress}:8080`,
+      proxyRules: `${serverIPAddress}:${Number(PROXY_PORT)}`,
     });
 
     ipcMain.handle(`get-error-url-${this.id}`, async (e) => {

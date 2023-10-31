@@ -1,10 +1,10 @@
 import { Server } from 'proxy-chain';
 
 export function createProxyServer() {
-  const { PROXY_USERNAME, PROXY_PASSWORD, PROXY_LINK } = process.env;
-
+  const { PROXY_USERNAME, PROXY_PASSWORD, PROXY_LINK, PROXY_PORT } =
+    process.env;
   const proxyServer = new Server({
-    port: 8080,
+    port: Number(PROXY_PORT),
     verbose: true,
     prepareRequestFunction: () => {
       return {
